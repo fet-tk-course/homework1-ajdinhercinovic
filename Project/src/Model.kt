@@ -16,3 +16,9 @@ data class App(
     }
     
 }
+
+data class Developer(
+    var nameSurname : String,
+    var country : String,
+    var developed : List<App>
+)

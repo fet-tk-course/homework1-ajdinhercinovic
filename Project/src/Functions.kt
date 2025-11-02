@@ -1,6 +1,6 @@
 package functions
 
-import model.App
+import model.*
 
 
 fun filterRating(lista : List<App>, rating : Double) : List<App>{
@@ -10,7 +10,7 @@ fun filterRating(lista : List<App>, rating : Double) : List<App>{
                 filteredList.add(app)
             }
         }
-        return filteredList
+        return filteredList.toList()
     }
 
 fun filterRatingLambda(lista : List<App>, rating : Double) : List<App> {
@@ -64,11 +64,48 @@ fun avgSizePerCategory(lista: List<App>) : Map<String, Double> {
     return map
 }
 
-fun searchByName(lista: List<App>, name : String){
+fun searchByName(lista: List<App>, name : String) : String?{
     val found = lista.find { it.appName == name }
     if(found == null){
         println("Aplikacija sa imenom:$name nije pronađena!")
     } else {
         println("${found.appName} (${found.category}) Downloads:${found.downloads} Rating:${found.avgRating}/5, ${found.sizeMB}MB")
     }
+    return found?.appName
+}
+
+fun write(lista: List<App>){
+    lista.toMutableList()
+    for(app in lista){
+        var downloadShort = app.downloads.toString()
+        if((app.downloads / 1000000) >= 1){
+            downloadShort = ("${app.downloads / 1000000}M+")
+        } else if((app.downloads / 1000) > 1){
+            downloadShort = ("${app.downloads / 100}K+")
+        }
+        println("App: ${app.appName} | Category:${app.category} | Rating:${app.avgRating} | Downloads:$downloadShort | size:${app.sizeMB}MB")
+    }
+}
+
+fun devMostDw(developers : List<Developer>) : Developer{
+    var max = developers.first()
+    var countMax = developers.first().developed.sumOf { it.downloads }
+    for(developer in developers){
+        val count = developer.developed.sumOf { it.downloads }
+        if(count > countMax){
+            countMax = count
+            max = developer
+        }
+    }
+    return max
+}
+
+fun devAvgAppRating(developer : Developer) : Double{
+    var sum = 0.0
+    var count = 0
+    for(app in developer.developed){
+        sum += app.avgRating
+        count++
+    }
+    return sum / count
 }
