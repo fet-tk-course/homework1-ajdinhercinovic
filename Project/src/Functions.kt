@@ -20,7 +20,7 @@ fun filterRatingLambda(lista : List<App>, rating : Double) : List<App> {
 fun categoryCount(apps : List<App>) : Map<String, Int> {
     val map = mutableMapOf<String, Int>()
     for(app in apps){
-        if(map.containsKey(app.category)){
+        if(map.containsKey(app.category)){  /*AI*/
             map[app.category] = map[app.category]!!.plus(1)
         } else{
             map[app.category] = 1
@@ -60,7 +60,7 @@ fun avgSizePerCategory(lista: List<App>) : Map<String, Double> {
     val map = lista.groupingBy { it.category }.fold(0 to 0) { avg, app ->
         val (total, count) = avg
         (total + app.sizeMB) to (count + 1)
-    }.mapValues { (_,pair) -> pair.first.toDouble() / pair.second }
+    }.mapValues { (_,pair) -> pair.first.toDouble() / pair.second }  /*AI*/
     return map
 }
 

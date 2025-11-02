@@ -13,8 +13,7 @@ data class App(
         require(downloads >= 0) {"Broj preuzimanja moze biti 0 ili pozitivan"}
         require(avgRating in 0.0..5.0){"Prosječna ocjena mora biti u opsegu od 0.0 do 5.0"}
         require(sizeMB > 0){"Velicina aplikacije mora biti veca od 0MB"}
-    }
-    
+    } /*AI*/
 }
 
 data class Developer(
