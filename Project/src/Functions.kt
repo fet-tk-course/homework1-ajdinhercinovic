@@ -109,3 +109,25 @@ fun devAvgAppRating(developer : Developer) : Double{
     }
     return sum / count
 }
+
+fun devLeaderboard(k: Int, developers : List<Developer>) : List<Developer>{
+    var topK = mutableListOf<Developer>()
+    var sortiraniDw = developers.sortedByDescending { it.developed.sumOf { it.downloads } }.toMutableList()
+    var n : Int = 0
+    while(n > k){
+        topK.add(sortiraniDw[n])
+    }
+    for (i in 0 until topK.size){
+        for(j in i+1 until topK.size){
+            if(sortiraniDw[i].developed.sumOf { it.downloads } == sortiraniDw[j].developed.sumOf { it.downloads }) {
+                if (devAvgAppRating(sortiraniDw[j]) > devAvgAppRating(sortiraniDw[i])) {
+                    val temp = sortiraniDw[j]
+                    sortiraniDw[j] = sortiraniDw[i]
+                    sortiraniDw[i] = temp
+                }
+            }
+        }
+    }
+    return topK.toList()
+}
+

@@ -87,5 +87,10 @@ fun main() {
     println("${best.nameSurname}")*/
 
     //Izračunavanje prosječne ocjene svih njegovih aplikacija.
-    println(devAvgAppRating(developers[1]))
+    //println(devAvgAppRating(developers[1]))
+
+    val topK = devLeaderboard(3, developers)
+    for(top in topK) {
+        println("${top.nameSurname}")
+    }
 }
